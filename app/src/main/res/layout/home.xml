@@ -10,8 +10,8 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="Home Screen"
+        android:layout_marginTop="52dp"
+        android:text="@string/homeScreenTitle"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,38 +21,38 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="84dp"
         android:onClick="newNote"
-        android:text="add note"
+        android:text="@string/addNoteBtn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listviewId"
+        app:layout_constraintVertical_bias="0.647" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/search_bar"
         android:layout_width="259dp"
         android:layout_height="67dp"
-        android:layout_marginTop="66dp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginTop="28dp"
         android:ems="10"
         android:hint="Search"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/listviewId"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <ListView
         android:id="@+id/listviewId"
-        android:layout_width="409dp"
-        android:layout_height="330dp"
+        android:layout_width="386dp"
+        android:layout_height="261dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        android:divider="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+        app:layout_constraintTop_toBottomOf="@+id/search_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">NoteMe</string>
+    <string name="addNoteBtn">Add Note</string>
+    <string name="homeScreenTitle">Home Screen</string>
+    <string name="back_btn">Back</string>
+    <string name="done_btn">Done</string>
 </resources>

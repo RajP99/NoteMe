@@ -8,11 +8,38 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class new_note extends AppCompatActivity {
 
     DBHelper db;
-    String title;
-    String messege;
+    String noteTitle;
+    String message;
+
+    public static ArrayList<new_note> noteArrayList = new ArrayList<>();
+
+    public new_note(String noteTitle, String message) {
+        this.noteTitle = noteTitle;
+        this.message = message;
+    }
+    public new_note() {
+    }
+
+    public String getNoteTitle() {
+        return noteTitle;
+    }
+
+    public void setNoteTitle(String noteTitle) {
+        this.noteTitle = noteTitle;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +55,10 @@ public class new_note extends AppCompatActivity {
     }
 
     public void AddNote(View v){
-        title = ((EditText)findViewById(R.id.noteTitle)).getText().toString();
-        messege = ((EditText)findViewById(R.id.noteMessage)).getText().toString();
+        noteTitle = ((EditText)findViewById(R.id.noteid)).getText().toString();
+        message = ((EditText)findViewById(R.id.notemessage)).getText().toString();
 
-        Boolean checkInsert = db.insertData(title, messege);
+        Boolean checkInsert = db.insertData(noteTitle, message);
         if (checkInsert) {
             Toast.makeText(this, "Inserted", Toast.LENGTH_SHORT).show();
             newHome(v);

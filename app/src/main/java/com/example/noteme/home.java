@@ -41,16 +41,17 @@ public class home extends AppCompatActivity {
         Log.d("ListDataActivity", "populateListView; displaying data..." );
         //getting data and adding it to the list
         Cursor data = db.getData();
-        ArrayList<String> listData = new ArrayList<>();
+        //ArrayList<String> listData = new ArrayList<>();
 
         while(data.moveToNext())
         {
-            listData.add(data.getString(1));
+           new_note note = new new_note(data.getString(0), data.getString(1));
+           new_note.noteArrayList.add(note);
+//            listData.add(data.getString(0)); //set this to text view title
+//            listData.add(data.getString(1)); //set this to text view subtitle
         }
-        ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,listData);
+        NoteAdaptor adapter = new NoteAdaptor(home.this, new_note.noteArrayList);
+      // NoteAdaptor noteAdaptor = new NoteAdaptor(getApplicationContext(), new_note.);
         mListView.setAdapter(adapter);
     }
-
-
-
 }
