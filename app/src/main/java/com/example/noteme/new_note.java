@@ -4,40 +4,40 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 public class new_note extends AppCompatActivity {
 
-    DatabaseHelper mDatabaseHelper;
+    DBHelper db;
+    String title;
+    String messege;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_note);
-//        mDatabaseHelper.showtest();
-        Log.d("CreatedTest","message");
+
+        db = new DBHelper(this);
     }
 
     public void newHome(View v){
-
         Intent intent =  new Intent(new_note.this, home.class);
         startActivity(intent);
     }
 
     public void AddNote(View v){
-        String message = ((EditText)findViewById(R.id.notemessage)).getText().toString();
-        String noteTitle = ((EditText)findViewById(R.id.noteid)).getText().toString();
-        Log.d("TEST",message);
+        title = ((EditText)findViewById(R.id.noteTitle)).getText().toString();
+        messege = ((EditText)findViewById(R.id.noteMessage)).getText().toString();
 
-//        if(message.length()!= 0 || noteTitle.length() != 0){
-//            boolean insertData = mDatabaseHelper.addData(message);
-//            if(insertData){
-//                Toast.makeText(this,"Data saved successfully",Toast.LENGTH_LONG).show();
-//            }
-//        }
-
+        Boolean checkInsert = db.insertData(title, messege);
+        if (checkInsert) {
+            Toast.makeText(this, "Inserted", Toast.LENGTH_SHORT).show();
+            newHome(v);
+        } else {
+            Toast.makeText(this, "Not inserted", Toast.LENGTH_SHORT).show();
+        }
     }
+
 }

@@ -18,8 +18,8 @@ import java.util.ArrayList;
 public class home extends AppCompatActivity {
 
     Button button;
-    DatabaseHelper mDatabaseHelper;
     private ListView mListView;
+    DBHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +27,10 @@ public class home extends AppCompatActivity {
         setContentView(R.layout.home);
         button = (Button) findViewById(R.id.button);
         mListView = (ListView) findViewById(R.id.listviewId);
-        mDatabaseHelper = new DatabaseHelper(this);
+
+        db = new DBHelper(this);
 
         populateListView();
-
     }
 
     public void newNote(View v){
@@ -40,7 +40,7 @@ public class home extends AppCompatActivity {
     private void populateListView() {
         Log.d("ListDataActivity", "populateListView; displaying data..." );
         //getting data and adding it to the list
-        Cursor data = mDatabaseHelper.getData();
+        Cursor data = db.getData();
         ArrayList<String> listData = new ArrayList<>();
 
         while(data.moveToNext())
