@@ -24,6 +24,9 @@ public class new_note extends AppCompatActivity {
     }
     public new_note() {
     }
+    public String toString() {
+        return noteTitle;
+    }
 
     public String getNoteTitle() {
         return noteTitle;
