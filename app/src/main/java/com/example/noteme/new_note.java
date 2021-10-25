@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -57,16 +58,20 @@ public class new_note extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void AddNote(View v){
-        noteTitle = ((EditText)findViewById(R.id.noteid)).getText().toString();
-        message = ((EditText)findViewById(R.id.notemessage)).getText().toString();
+    public void AddNote(View v) {
+        noteTitle = ((EditText) findViewById(R.id.noteid)).getText().toString();
+        message = ((EditText) findViewById(R.id.notemessage)).getText().toString();
 
-        Boolean checkInsert = db.insertData(noteTitle, message);
-        if (checkInsert) {
-            Toast.makeText(this, "Inserted", Toast.LENGTH_SHORT).show();
-            newHome(v);
+        if (TextUtils.isEmpty(noteTitle)) {
+            Toast.makeText(this, "Empty note title not allowed!", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Not inserted", Toast.LENGTH_SHORT).show();
+            Boolean checkInsert = db.insertData(noteTitle, message);
+            if (checkInsert) {
+                Toast.makeText(this, "Your note has been saved!", Toast.LENGTH_SHORT).show();
+                newHome(v);
+            } else {
+                Toast.makeText(this, "You already have a note with the same name!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
