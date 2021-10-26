@@ -46,22 +46,13 @@ public class NoteAdaptor extends ArrayAdapter<new_note> {
                 convertView.setBackgroundColor(Color.RED);
                 break;
             case "GREEN":
-                convertView.setBackgroundColor(Color.BLUE);
+                convertView.setBackgroundColor(Color.GREEN);
                 break;
             case "BLUE":
                 convertView.setBackgroundColor(Color.BLUE);
                 break;
             case "YELLOW":
-                convertView.setBackgroundColor(Color.BLUE);
-                break;
-            case "PINK":
-                convertView.setBackgroundColor(Color.BLUE);
-                break;
-            case "PURPLE":
-                convertView.setBackgroundColor(Color.BLUE);
-                break;
-            case "ORANGE":
-                convertView.setBackgroundColor(Color.BLUE);
+                convertView.setBackgroundColor(Color.YELLOW);
                 break;
             default:
                 break;
