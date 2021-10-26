@@ -4,4 +4,11 @@
     <string name="homeScreenTitle">Home Screen</string>
     <string name="back_btn">Back</string>
     <string name="done_btn">Done</string>
+    <string-array name="colours">
+        <item>No Colour</item>
+        <item>RED</item>
+        <item>GREEN</item>
+        <item>BLUE</item>
+        <item>YELLOW</item>
+    </string-array>
 </resources>

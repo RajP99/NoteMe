@@ -71,7 +71,7 @@ public class home extends AppCompatActivity {
 
         while(data.moveToNext())
         {
-           new_note note = new new_note(data.getString(0), data.getString(1));
+           new_note note = new new_note(data.getString(0), data.getString(1), data.getString(2));
            new_note.noteArrayList.add(note);
 //            listData.add(data.getString(0)); //set this to text view title
 //            listData.add(data.getString(1)); //set this to text view subtitle

@@ -13,18 +13,24 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create Table NotesTable(title TEXT primary key, messege TEXT)");
+        db.execSQL("create Table NotesTable(title TEXT primary key, messege TEXT, colour TEXT)");
     }
 
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL("drop Table if exists UserDetails");
+        db.execSQL("drop Table if exists NotesTable");
     }
 
-    public Boolean insertData(String title, String messege) {
+    public void deleteTable() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("drop Table if exists NotesTable");
+    }
+
+    public Boolean insertData(String title, String messege, String colour) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("title", title);
         contentValues.put("messege", messege);
+        contentValues.put("colour", colour);
         long result = db.insert("NotesTable", null, contentValues);
         if (result == -1) {
             return false;
