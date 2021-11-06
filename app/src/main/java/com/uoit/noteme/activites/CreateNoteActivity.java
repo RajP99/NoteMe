@@ -260,6 +260,7 @@ public class CreateNoteActivity extends AppCompatActivity {
                     }
 
                     new DeleteNoteTask().execute();
+                    Toast.makeText(getApplicationContext(), "Note Deleted", Toast.LENGTH_SHORT).show();
                 }
             });
 
