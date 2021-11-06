@@ -3,16 +3,20 @@ package com.uoit.noteme.activites;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -30,6 +34,9 @@ public class CreateNoteActivity extends AppCompatActivity {
     private View viewSubtitleIndicator;
 
     private String selectedNoteColor;
+    private AlertDialog dialogDeleteNote;
+
+    private Note alreadyAvailableNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +61,23 @@ public class CreateNoteActivity extends AppCompatActivity {
 
         selectedNoteColor = "#333333";
 
+        if(getIntent().getBooleanExtra("isViewedOrUpdate", false)){
+            alreadyAvailableNote = (Note) getIntent().getSerializableExtra("note");
+            setViewOrUpdateNote();
+        }
+
         initMiscellaneous();
         setSubtitleIndicatorColor();
+    }
+
+    private void setViewOrUpdateNote(){
+        inputNoteTitle.setText(alreadyAvailableNote.getTitle());
+        inputNoteSubtitle.setText(alreadyAvailableNote.getSubtitle());
+        inputNoteText.setText(alreadyAvailableNote.getNoteText());
+        textDateTime.setText(alreadyAvailableNote.getDateTime());
+        if(alreadyAvailableNote.getImagePath() != null && !alreadyAvailableNote.getImagePath().trim().isEmpty()){
+            //put image related code here  > set visibility
+        }
     }
 
     private void saveNote() {
@@ -75,6 +97,10 @@ public class CreateNoteActivity extends AppCompatActivity {
         note.setNoteText(noteText);
         note.setDateTime(dateTimeStr);
         note.setColor(selectedNoteColor);
+
+        if(alreadyAvailableNote != null){
+            note.setId(alreadyAvailableNote.getId());
+        }
 
         @SuppressLint("StaticFieldLeak")
         class SaveNoteTask extends AsyncTask<Void, Void, Void> {
@@ -162,6 +188,91 @@ public class CreateNoteActivity extends AppCompatActivity {
             imageColor5.setImageResource(R.drawable.ic_done);
             setSubtitleIndicatorColor();
         });
+
+        if(alreadyAvailableNote != null && alreadyAvailableNote.getColor() != null && alreadyAvailableNote.getColor().trim().isEmpty()){
+            switch (alreadyAvailableNote.getColor()){
+                case "#333333":
+                    layoutMiscellaneous.findViewById(R.id.viewColor1).performClick();
+                    break;
+                case "#FFFF00":
+                    layoutMiscellaneous.findViewById(R.id.viewColor2).performClick();
+                    break;
+                case "#7B99F4":
+                    layoutMiscellaneous.findViewById(R.id.viewColor3).performClick();
+                    break;
+                case "#98D319":
+                    layoutMiscellaneous.findViewById(R.id.viewColor4).performClick();
+                    break;
+                case "#19CED3":
+                    layoutMiscellaneous.findViewById(R.id.viewColor5).performClick();
+                    break;
+            }
+        }
+
+        if(alreadyAvailableNote !=null){
+            layoutMiscellaneous.findViewById(R.id.layoutDelete).setVisibility(View.VISIBLE);
+            layoutMiscellaneous.findViewById(R.id.layoutDelete).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    showDeleteNoteDialog();
+                }
+            });
+
+
+        }
+
+
+    }
+
+    private void showDeleteNoteDialog(){
+        if(dialogDeleteNote == null){
+            AlertDialog.Builder builder = new AlertDialog.Builder(CreateNoteActivity.this);
+            View view = LayoutInflater.from(this).inflate(
+                    R.layout.layout_delete_note,
+                    (ViewGroup) findViewById(R.id.layoutDeleteNoteContainer)
+            );
+            builder.setView(view);
+            dialogDeleteNote = builder.create();
+            if(dialogDeleteNote.getWindow() != null){
+                dialogDeleteNote.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+            }
+            view.findViewById(R.id.textDeleteNote).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    @SuppressLint("StaticFieldLeak")
+                    class DeleteNoteTask extends AsyncTask<Void, Void, Void>{
+
+                        @Override
+                        protected Void doInBackground(Void... voids) {
+                            NotesDatabase.getNotesDatabase(getApplicationContext()).noteDao().deleteNote(alreadyAvailableNote);
+                            return null;
+                        }
+
+                        @Override
+                        protected void onPostExecute(Void aVoid) {
+                            super.onPostExecute(aVoid);
+                            Intent intent = new Intent();
+                            intent.putExtra("isNoteDeleted", true);
+                            setResult(RESULT_OK, intent);
+                            finish();
+                        }
+                    }
+
+                    new DeleteNoteTask().execute();
+                }
+            });
+
+            view.findViewById(R.id.textCancel).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogDeleteNote.dismiss();
+
+                }
+            });
+        }
+
+        dialogDeleteNote.show();
     }
 
     private void setSubtitleIndicatorColor() {
