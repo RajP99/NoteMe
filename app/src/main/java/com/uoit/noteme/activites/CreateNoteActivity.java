@@ -334,7 +334,7 @@ public class CreateNoteActivity extends AppCompatActivity {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 selectImage();
             } else {
-                Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Permission Denied to Access Gallary", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -351,14 +351,6 @@ public class CreateNoteActivity extends AppCompatActivity {
                         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                         inputImage.setImageBitmap(bitmap);
                         inputImage.setVisibility(View.VISIBLE);
-
-//                        Glide.with(CreateNoteActivity.this)
-//                                .load(selectedImageUri)
-//                                .into(imageNote);
-//
-//                        imageNote.setVisibility(View.VISIBLE);
-//                        findViewById(R.id.imageRemoveImage).setVisibility(View.VISIBLE);
-//
                         imagePath = getPathFromUri(selectedImageUri);
                     } catch (Exception e) {
                         Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
