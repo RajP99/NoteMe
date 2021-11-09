@@ -96,7 +96,9 @@ public class CreateNoteActivity extends AppCompatActivity {
         inputNoteText.setText(alreadyAvailableNote.getNoteText());
         textDateTime.setText(alreadyAvailableNote.getDateTime());
         if(alreadyAvailableNote.getImagePath() != null && !alreadyAvailableNote.getImagePath().trim().isEmpty()){
-            //put image related code here  > set visibility
+            inputImage.setImageBitmap(BitmapFactory.decodeFile(alreadyAvailableNote.getImagePath()));
+            inputImage.setVisibility(View.VISIBLE);
+            imagePath = alreadyAvailableNote.getImagePath();
         }
     }
 
