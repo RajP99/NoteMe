@@ -2,6 +2,7 @@ package com.uoit.noteme.activites;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -36,6 +37,7 @@ import com.uoit.noteme.R;
 import com.uoit.noteme.database.NotesDatabase;
 import com.uoit.noteme.entities.Note;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -55,6 +57,9 @@ public class CreateNoteActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE_STORAGE_PERMISSION = 1;
     private static final int REQUEST_CODE_SELECT_IMAGE = 2;
+
+    private static int CAMERA_PERMISSION_CODE = 1;
+    private static int CAMERA = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +93,15 @@ public class CreateNoteActivity extends AppCompatActivity {
 
         initMiscellaneous();
         setSubtitleIndicatorColor();
+
+        if (ContextCompat.checkSelfPermission(CreateNoteActivity.this,
+                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(CreateNoteActivity.this,
+                    new String[] {
+                            Manifest.permission.CAMERA
+                    },
+                    100);
+        }
     }
 
     private void setViewOrUpdateNote(){
@@ -227,6 +241,14 @@ public class CreateNoteActivity extends AppCompatActivity {
                 }
             }
         });
+        
+        layoutMiscellaneous.findViewById(R.id.layoutAddCameraImage).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 100);
+            }
+        });
 
         if(alreadyAvailableNote != null && alreadyAvailableNote.getColor() != null && alreadyAvailableNote.getColor().trim().isEmpty()){
             switch (alreadyAvailableNote.getColor()){
@@ -354,12 +376,31 @@ public class CreateNoteActivity extends AppCompatActivity {
                         inputImage.setImageBitmap(bitmap);
                         inputImage.setVisibility(View.VISIBLE);
                         imagePath = getPathFromUri(selectedImageUri);
+                        Toast.makeText(CreateNoteActivity.this, "img_path:" + imagePath, Toast.LENGTH_SHORT).show();
+
                     } catch (Exception e) {
                         Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             }
         }
+
+        if(requestCode == 100){
+            Toast.makeText(CreateNoteActivity.this, "Image taken", Toast.LENGTH_SHORT).show();
+
+            Bitmap captureImage = (Bitmap) data.getExtras().get("data");
+            inputImage.setImageBitmap(captureImage);
+            inputImage.setVisibility(View.VISIBLE);
+            Uri tempUri = getImageUri(getApplicationContext(), captureImage);
+            imagePath = getPathFromUri(tempUri);
+
+        }
+    }
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
     }
 
     private String getPathFromUri(Uri contentUri) {

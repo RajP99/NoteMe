@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,8 +22,17 @@ import com.uoit.noteme.database.NotesDatabase;
 import com.uoit.noteme.entities.Note;
 import com.uoit.noteme.listeners.NotesListener;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements NotesListener {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -54,7 +64,8 @@ public class MainActivity extends AppCompatActivity implements NotesListener {
         noteList = new ArrayList<>();
         notesAdapter = new NotesAdapter(noteList, this);
         notesRecyclerView.setAdapter(notesAdapter);
-
+        //get Json data
+        getdata();
         getNotes(REQUEST_CODE_SHOW_NOTES, false);
 
         EditText inputSearch = findViewById(R.id.inputSearch);
@@ -76,6 +87,8 @@ public class MainActivity extends AppCompatActivity implements NotesListener {
                 }
             }
         });
+
+
     }
 
     private void getNotes(final int requestCode, final boolean isNoteDeleted) {
@@ -147,4 +160,62 @@ public class MainActivity extends AppCompatActivity implements NotesListener {
             }
         }
     }
+    public void getdata(){
+        try {
+            JSONObject jsonObject = new JSONObject(JsonDataFromAsset());
+            JSONArray jsonArray = jsonObject.getJSONArray("notes");
+            for (int i =0; i< jsonArray.length(); i++){
+                JSONObject notedata = jsonArray.getJSONObject(i);
+                String title = notedata.getString("title");
+                String subtitle = notedata.getString("subtitle");
+                String text = notedata.getString("text");
+                String path = notedata.getString("image path");
+
+                String time = new SimpleDateFormat(
+                "EEEE, dd MMMM yyyy HH:mm a", Locale.getDefault()).format(new Date().getTime());
+                final Note note = new Note();
+
+                note.setTitle(title);
+                note.setSubtitle(subtitle);
+                note.setNoteText(text);
+                note.setDateTime(time);
+                note.setColor("#333333");
+                note.setImagePath(path);
+
+                @SuppressLint("StaticFieldLeak")
+                class SaveNoteTask extends AsyncTask<Void, Void, Void> {
+                    @Override
+                    protected Void doInBackground(Void... voids) {
+                        NotesDatabase.getNotesDatabase(getApplicationContext()).noteDao().insertNote(note);
+                        return null;
+                    }
+
+                }
+
+                new SaveNoteTask().execute();
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    private String JsonDataFromAsset() {
+        String json= null;
+
+        try {
+            InputStream inputStream=getAssets().open("notes.json");
+            int sizeofFile = inputStream.available();
+            byte[] bufferData = new byte[sizeofFile];
+            inputStream.read(bufferData);
+            inputStream.close();
+            json = new String(bufferData, "UTF-8");
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return json;
+    }
+
+
 }
