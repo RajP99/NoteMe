@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -16,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.google.gson.Gson;
 import com.uoit.noteme.R;
 import com.uoit.noteme.adapters.NotesAdapter;
 import com.uoit.noteme.database.NotesDatabase;
@@ -26,8 +29,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -215,6 +223,33 @@ public class MainActivity extends AppCompatActivity implements NotesListener {
             e.printStackTrace();
         }
         return json;
+    }
+
+    public void exportfiles(View view){
+        String json = "";
+        String note = new Gson().toJson(noteList);
+        //Toast.makeText(MainActivity.this, note, Toast.LENGTH_SHORT).show();
+
+        FileOutputStream fos = null;
+
+        try {
+            fos = openFileOutput("mynotes.text", MODE_PRIVATE);
+            fos.write(note.getBytes());
+            Toast.makeText(this, "Saved to" + getFilesDir() + "/" + "mynotes.json", Toast.LENGTH_LONG).show();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 
