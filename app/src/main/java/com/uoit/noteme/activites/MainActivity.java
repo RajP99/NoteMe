@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements NotesListener {
         notesAdapter = new NotesAdapter(noteList, this);
         notesRecyclerView.setAdapter(notesAdapter);
         //get Json data
-        getdata();
+//        getdata();
         getNotes(REQUEST_CODE_SHOW_NOTES, false);
 
         EditText inputSearch = findViewById(R.id.inputSearch);
@@ -225,6 +225,12 @@ public class MainActivity extends AppCompatActivity implements NotesListener {
         return json;
     }
 
+    public void openflowchart(View view) {
+        Intent i = new Intent(this, Flowchart.class);
+        startActivity(i);
+
+    }
+
     public void exportfiles(View view){
         String json = "";
         String note = new Gson().toJson(noteList);
@@ -233,9 +239,9 @@ public class MainActivity extends AppCompatActivity implements NotesListener {
         FileOutputStream fos = null;
 
         try {
-            fos = openFileOutput("mynotes.text", MODE_PRIVATE);
+            fos = openFileOutput("makingnewNote.json", MODE_PRIVATE);
             fos.write(note.getBytes());
-            Toast.makeText(this, "Saved to" + getFilesDir() + "/" + "mynotes.json", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Saved to" + getFilesDir() + "/" + "makingnewNote.json", Toast.LENGTH_LONG).show();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
