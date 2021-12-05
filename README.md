@@ -1,5 +1,5 @@
-# Lab 2
+# Lab 5
 
 ## Ontario tech university
 ## Mobile application course
-## Lab2: Create a database to store notes permanenetly
+## Lab5: Final Project completed
