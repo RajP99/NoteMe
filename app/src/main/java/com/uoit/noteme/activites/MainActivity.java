@@ -1,7 +1,9 @@
 package com.uoit.noteme.activites;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -32,6 +35,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -236,25 +240,24 @@ public class MainActivity extends AppCompatActivity implements NotesListener {
         String note = new Gson().toJson(noteList);
         //Toast.makeText(MainActivity.this, note, Toast.LENGTH_SHORT).show();
 
-        FileOutputStream fos = null;
 
-        try {
-            fos = openFileOutput("makingnewNote.json", MODE_PRIVATE);
-            fos.write(note.getBytes());
-            Toast.makeText(this, "Saved to" + getFilesDir() + "/" + "makingnewNote.json", Toast.LENGTH_LONG).show();
+        try{
+            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+                    "notes_data.json");
+//                    if (!root.exists()) {
+//                        root.mkdirs();
+//                    }
+//                    File file = new File(root, "notes_data.json");
+            FileWriter writer = new FileWriter(file);
+            writer.append(note);  //call method to get json data here
+            writer.flush();
+            writer.close();
 
-        } catch (FileNotFoundException e) {
+            Toast.makeText(this, "Json file exported Successfully", Toast.LENGTH_SHORT).show();
+//            showDownloadNotification();
+        }catch(IOException e){
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (fos != null) {
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+
         }
     }
 

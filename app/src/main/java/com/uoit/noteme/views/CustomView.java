@@ -1,12 +1,15 @@
 package com.uoit.noteme.views;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.os.Environment;
+import android.text.BoringLayout;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -16,6 +19,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 public class CustomView extends View {
@@ -251,7 +256,6 @@ public class CustomView extends View {
                     }
                 }
 
-
             }
         }
 
@@ -263,6 +267,28 @@ public class CustomView extends View {
 
         if (mx > dx - hw && mx < dx + hw && my < dy + hw && my > dy - hw) {
             return true;
+        }
+        return false;
+    }
+
+    public Boolean export() {
+        View content = this;
+        content.setDrawingCacheEnabled(true);
+        content.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        Bitmap bitmap = content.getDrawingCache();
+//        String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),"/image.png");
+        FileOutputStream ostream;
+        try {
+            file.createNewFile();
+            ostream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, ostream);
+            ostream.flush();
+            ostream.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+
         }
         return false;
     }

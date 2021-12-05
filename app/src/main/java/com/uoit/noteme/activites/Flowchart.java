@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.uoit.noteme.R;
 import com.uoit.noteme.views.CustomView;
@@ -49,6 +50,15 @@ public class Flowchart extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mCustomView.addLine();
+            }
+        });
+
+        findViewById(R.id.btn_export).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+               Boolean result =  mCustomView.export();
+                Toast.makeText(getApplicationContext(), result.toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }
