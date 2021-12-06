@@ -38,11 +38,12 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/uoit/noteme/activites/Flowchart.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/uoit/noteme/activites/Flowchart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/uoit/noteme/activites/CreateNoteActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/uoit/noteme/activites/CreateNoteActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/uoit/noteme/activites/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/uoit/noteme/activites/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/uoit/noteme/views/CustomView.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/uoit/noteme/views/CustomView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_flowchart.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_flowchart.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_colour.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_colour.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +117,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android-custom-viewC:/Users/patel/OneDrive/Documents/GitHub/NoteMe/app/src/main/java/com/uoit/noteme/views/CustomView.java_CustomView_DIMENSIONS" value="1080&#10;1920" />
     <property name="android-custom-viewC:/Users/patel/OneDrive/Documents/GitHub/NoteMe/app/src/main/java/com/uoit/noteme/views/CustomView.java_SELECTED" value="CustomView" />
-    <property name="last_opened_file_path" value="$USER_HOME$/AndroidStudioProjects/Lab4_NoteMe/NoteMe" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">

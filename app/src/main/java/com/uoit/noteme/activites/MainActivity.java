@@ -229,11 +229,7 @@ public class MainActivity extends AppCompatActivity implements NotesListener {
         return json;
     }
 
-    public void openflowchart(View view) {
-        Intent i = new Intent(this, Flowchart.class);
-        startActivity(i);
 
-    }
 
     public void exportfiles(View view){
         String json = "";
@@ -243,7 +239,7 @@ public class MainActivity extends AppCompatActivity implements NotesListener {
 
         try{
             File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-                    "notes_data.json");
+                    "notes_data.txt");
 //                    if (!root.exists()) {
 //                        root.mkdirs();
 //                    }

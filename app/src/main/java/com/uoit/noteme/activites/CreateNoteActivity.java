@@ -29,6 +29,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.helper.widget.Flow;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -115,6 +116,8 @@ public class CreateNoteActivity extends AppCompatActivity {
             imagePath = alreadyAvailableNote.getImagePath();
         }
     }
+
+
 
     private void saveNote() {
         final String noteTitle = inputNoteTitle.getText().toString().trim();
@@ -247,6 +250,15 @@ public class CreateNoteActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, 100);
+            }
+        });
+
+        layoutMiscellaneous.findViewById(R.id.layoutAddFlowchart).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(CreateNoteActivity.this, Flowchart.class);
+                startActivity(i);
             }
         });
 

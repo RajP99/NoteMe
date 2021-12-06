@@ -137,17 +137,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btn_flowchart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:onClick="openflowchart"
-        android:text="Flowchart"
-        app:layout_constraintEnd_toStartOf="@+id/btn_export"
-        app:layout_constraintHorizontal_bias="0.521"
-        app:layout_constraintStart_toEndOf="@+id/textMyNotes"
-        app:layout_constraintTop_toTopOf="@+id/btn_export"
-        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
