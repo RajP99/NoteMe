@@ -58,8 +58,7 @@ public class Flowchart extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Boolean result = mCustomView.export();
-                Toast.makeText(getApplicationContext(), result.toString(), Toast.LENGTH_SHORT).show();
+               mCustomView.export();
             }
         });
     }

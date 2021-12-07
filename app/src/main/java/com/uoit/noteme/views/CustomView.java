@@ -10,6 +10,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.media.MediaScannerConnection;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.text.BoringLayout;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -279,7 +280,8 @@ public class CustomView extends View {
         Bitmap bitmap = content.getDrawingCache();
 
         String filename = String.format("%d.png", System.currentTimeMillis());
-        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),filename);
+        File file = new File(MediaStore.Images.Media.insertImage(getContext().getContentResolver(), bitmap, filename, "desc"), filename);
+     //   Toast.makeText(getContext(), MediaStore.Images.Media.insertImage(getContext().getContentResolver(), bitmap, filename, "desc"), Toast.LENGTH_SHORT).show();
         FileOutputStream ostream;
         try {
             file.createNewFile();
@@ -293,6 +295,4 @@ public class CustomView extends View {
         }
         return false;
     }
-
-
 }
