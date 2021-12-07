@@ -111,11 +111,11 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
                 gradientDrawable.setColor(Color.parseColor("#333333"));
             }
 
-            if (note.getImagePath() != null) {
+            if (note.getImagePath().isEmpty()) {
+                imageHolder.setVisibility(View.GONE);
+            } else {
                 imageHolder.setImageBitmap(BitmapFactory.decodeFile(note.getImagePath()));
                 imageHolder.setVisibility(View.VISIBLE);
-            } else {
-                imageHolder.setVisibility(View.GONE);
             }
         }
     }

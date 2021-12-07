@@ -356,7 +356,7 @@ public class CreateNoteActivity extends AppCompatActivity {
 
     @SuppressLint("QueryPermissionsNeeded")
     private void selectImage() {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         if (intent.resolveActivity(getPackageManager()) == null) {
             Log.d("testing", "select");
             startActivityForResult(intent, REQUEST_CODE_SELECT_IMAGE);

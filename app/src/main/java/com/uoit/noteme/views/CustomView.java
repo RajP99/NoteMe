@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.media.MediaScannerConnection;
 import android.os.Environment;
 import android.text.BoringLayout;
 import android.util.AttributeSet;
@@ -276,8 +277,9 @@ public class CustomView extends View {
         content.setDrawingCacheEnabled(true);
         content.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         Bitmap bitmap = content.getDrawingCache();
-//        String path = Environment.getExternalStorageDirectory().getAbsolutePath();
-        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),"/image.png");
+
+        String filename = String.format("%d.png", System.currentTimeMillis());
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),filename);
         FileOutputStream ostream;
         try {
             file.createNewFile();
@@ -288,8 +290,9 @@ public class CustomView extends View {
             return true;
         } catch (Exception e) {
             e.printStackTrace();
-
         }
         return false;
     }
+
+
 }

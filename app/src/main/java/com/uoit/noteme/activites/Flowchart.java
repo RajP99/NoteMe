@@ -2,6 +2,7 @@ package com.uoit.noteme.activites;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -37,7 +38,7 @@ public class Flowchart extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.btn_newdiamond).setOnClickListener(new View.OnClickListener(){
+        findViewById(R.id.btn_newdiamond).setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -57,7 +58,7 @@ public class Flowchart extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-               Boolean result =  mCustomView.export();
+                Boolean result = mCustomView.export();
                 Toast.makeText(getApplicationContext(), result.toString(), Toast.LENGTH_SHORT).show();
             }
         });

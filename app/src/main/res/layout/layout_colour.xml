@@ -186,7 +186,7 @@
             android:layout_width="@dimen/_22sdp"
             android:layout_height="@dimen/_22sdp"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/background_note"
+            android:src="@drawable/ic_flowchart"
             app:tint="@color/colorIcons" />
 
         <TextView
